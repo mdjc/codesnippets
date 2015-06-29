@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default main-navbar" ng-controller="NavCtrl as vm">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainMenu">
+				<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+			</button>
+			<a href="#/welcome" class="navbar-brand logo"></a>
+		</div>
+		
+		<ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="mainMenu">
+			<li class="navbar-btn"><a href="#/allsnippets">All Snippets</a></li>
+			<li class="navbar-btn"><a href="#/signin" ng-hide="username">Sign in</a></li>
+			<li class="navbar-btn"><a href="#/signup" ng-hide="username">Sign up</a></li>
+			
+			<li class="navbar-btn"><a href="#/home" ng-show="username">My Snippets</a></li>
+			<li class="navbar-btn" ng-show="username">
+				<a href="" class="text-capitalize" data-target="#" data-toggle="dropdown"><strong>{{username}}</strong> <span class="caret"></span></a>						
+				<ul class="dropdown-menu">
+					<li><a ng-click="vm.signOut()">Sing out</a></li>
+				</ul>
+			</li>					
+		
+		</ul>
+	</div>
+</nav>

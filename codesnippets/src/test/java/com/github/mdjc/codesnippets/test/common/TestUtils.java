@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import org.h2.jdbcx.JdbcConnectionPool;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.github.mdjc.common.Utils;
+import com.github.mdjc.commons.Utils;
 
 public class TestUtils {
 	public static JdbcConnectionPool buildDataSource() throws SQLException, IOException {

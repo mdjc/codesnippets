@@ -1,4 +1,4 @@
-package com.github.mdjc.common;
+package com.github.mdjc.commons;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

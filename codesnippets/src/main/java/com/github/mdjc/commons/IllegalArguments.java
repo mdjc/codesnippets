@@ -1,4 +1,4 @@
-package com.github.mdjc.common;
+package com.github.mdjc.commons;
 
 public class IllegalArguments {
 	public static String checkBlank(String s) {

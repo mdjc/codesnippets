@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import com.github.mdjc.codesnippets.domain.DuplicateUserException;
 import com.github.mdjc.codesnippets.domain.User;
 import com.github.mdjc.codesnippets.domain.UsersRepository;
-import com.github.mdjc.common.IllegalArguments;
+import com.github.mdjc.commons.IllegalArguments;
 
 public class MySQLUsersRepository extends JdbcDaoSupport implements UsersRepository {
 	private final RowMapper<User> mapper = (rs, row) -> User.of(

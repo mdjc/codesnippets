@@ -1,0 +1,47 @@
+<div class="container">	
+	<div class="alert alert-{{vm.alert.type}}" role="alert" ng-if="vm.alert.message">{{vm.alert.message}}</div>
+	
+	<div class="form-horizontal vertical-separated-1">
+		<div class="row text-center">
+			<div class="col-xs-12 col-sm-11 col-sm-offset-1 col-md-9 col-md-offset-1">
+				<h1 class="main-title">Sign In</h1>
+			</div>
+		</div>
+			
+		<form ng-submit="vm.signIn()">
+			<fieldset class="form-group">
+				<div class="col-xs-12 col-sm-7 col-sm-offset-3 col-md-5 col-md-offset-3">
+					<label for="username">Username</label>					
+				</div>
+				
+				<div class="col-xs-12 col-sm-7 col-sm-offset-3 col-md-5 col-md-offset-3">
+					<input type="text" class="form-control" id="username" ng-model="vm.username" required autofocus size="30">
+				</div>
+			</fieldset>
+			
+			<fieldset class="form-group">
+				<div class="col-xs-12 col-sm-7 col-sm-offset-3 col-md-5 col-md-offset-3">
+					<label for="password">Password</label>					
+				</div>
+				
+				<div class="col-xs-12 col-sm-7 col-sm-offset-3 col-md-5 col-md-offset-3">
+					<input type="password" class="form-control" id="password" ng-model="vm.password" required autofocus size="30">
+				</div>
+			</fieldset>
+			
+			<div class="row text-center">
+				<div class="col-xs-12 col-sm-7 col-sm-offset-3 col-md-5 col-md-offset-3">
+					<input type="submit" class="btn btn-default btn-lg vertical-separated-1" value="Sign In">
+				</div>		
+			</div>
+		
+		</form>
+			
+		<div class="row text-center">
+			<div class="col-xs-12 col-sm-7 col-sm-offset-3 col-md-5 col-md-offset-3 new-account">
+				<p>Don't have an account? <a href="#/signup">Create a free account</a></p>
+			</div>		
+		</div>
+	</div>	
+</div>
+	

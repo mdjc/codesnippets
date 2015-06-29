@@ -1,0 +1,22 @@
+<div class="container">	
+	<div class="alert alert-{{vm.alert.type}}" role="alert" ng-if="vm.alert.message">{{vm.alert.message}}</div>
+	<form ng-submit="vm.update()">
+		<fieldset class="form-group">
+			<label for="title">Title</label>
+			<input class="form-control" type="text" size="60" maxlength="60" id="title" ng-model="vm.snippetItem.snippet.title" required>
+		</fieldset>
+		
+		<fieldset class="form-group">
+			<div>
+				<p>
+					<label for="code">Code</label>
+				</p>
+			</div>							
+			<textarea class="form-control" rows="20" cols="70" id="code" ng-model="vm.snippetItem.snippet.code" maxlength="4000" required></textarea>
+		</fieldset>
+		
+		<div class="text-center">
+			<input type="submit" class="btn btn-default btn-lg" value="Update">
+		</div>
+	</form>
+</div>

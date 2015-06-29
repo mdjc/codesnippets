@@ -1,0 +1,36 @@
+<section class="container">
+	<div class="alert alert-{{vm.alert.type}}" role="alert" ng-if="vm.alert.message">{{vm.alert.message}}</div>
+		
+	<div class="pull-right">
+		<div class="btn-group options-bar" role="group">
+			  <a href="#/newsnippet" class="btn btn-default" role="button" ng-show="username">
+			  	<span class="glyphicon glyphicon-plus"></span> New snippet
+			  </a>
+		  </div>
+	</div>
+
+	<div class="row">
+		<form ng-submit="vm.submit()" method="get">
+			<div class="col-xs-12 search-criteria">
+				<div class="input-group">
+					<input type="text" class="form-control medium-form-input" ng-model="vm.query" placeholder="{{vm.searchph}}">
+					
+					<span class="input-group-btn">
+					     <input type="submit" value="Search" class="btn btn-default">
+    				</span>
+					
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="row snippets-list">
+		<ul class="list-group">
+			<li ng-repeat="searchItem in vm.searchItems" class="list-group-item snippet-item">
+				<a ng-href="#/{{vm.hrefViewSnippet(searchItem.username)}}/{{searchItem.snippet.id}}">{{searchItem.snippet.title}}</a>						
+			</li>
+		</ul>
+	</div>
+
+</section>
+	

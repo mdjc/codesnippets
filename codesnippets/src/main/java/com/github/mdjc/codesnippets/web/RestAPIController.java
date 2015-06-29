@@ -1,5 +1,6 @@
 package com.github.mdjc.codesnippets.web;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,29 @@ import com.github.mdjc.codesnippets.domain.Snippet;
 import com.github.mdjc.codesnippets.domain.SnippetSearchItem;
 import com.github.mdjc.codesnippets.domain.SnippetsRepository;
 import com.github.mdjc.codesnippets.domain.User;
+import com.github.mdjc.codesnippets.domain.UserService;
 import com.github.mdjc.codesnippets.domain.UsersRepository;
 
 @RestController
 public class RestAPIController {
+	@Autowired
+	private UserService userService;
+
 	@Autowired
 	private UsersRepository usersRepository;
 
 	@Autowired
 	private SnippetsRepository snippetsRepository;
 
+	@RequestMapping("/principal")
+	public Principal principal(Principal principal) {
+		return principal;
+	}
+
 	@RequestMapping(method = RequestMethod.POST, value = "/users")
 	@ResponseStatus(HttpStatus.CREATED)
 	public User register(@RequestBody User user) {
-		return usersRepository.add(user);
+		return userService.addUser(user);
 	}
 
 	@RequestMapping(value = "/snippets")
@@ -53,6 +63,7 @@ public class RestAPIController {
 		return user.findSnippet(query);
 	}
 
+	// TODO: compare user against principal
 	@RequestMapping(method = RequestMethod.POST, value = "/users/{name}/snippets")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Snippet> addSnippet(@PathVariable String name, @RequestBody Snippet snippet) {

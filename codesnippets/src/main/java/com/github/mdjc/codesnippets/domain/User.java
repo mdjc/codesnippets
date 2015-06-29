@@ -3,7 +3,7 @@ package com.github.mdjc.codesnippets.domain;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import com.github.mdjc.common.IllegalArguments;
+import com.github.mdjc.commons.IllegalArguments;
 
 public class User implements Comparable<User> {
 	public static User NULL = new User("", "", "", Provider.NULL);

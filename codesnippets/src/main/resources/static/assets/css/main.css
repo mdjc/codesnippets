@@ -1,0 +1,111 @@
+.main-navbar {
+	background-color: white;
+	border-style: none;	
+	margin-bottom: 10px;
+	font-size: 18px;
+}
+
+.logo {
+	background: url("../img/logo-phrase.png") no-repeat right top;
+	width: 326px;
+	height: 89px;
+	display: block;
+	margin-top: 5px;
+}
+
+.bright-container {
+	background-color: #437C84;
+	color: #fff;
+	padding: 80px 80px;
+	font-size: 18px;
+}
+
+.light-container {
+	background-color: rgba(121, 174, 187, 0.07);
+}
+
+.main-title {
+	margin-bottom: 20px;
+}
+
+.options-bar {
+	margin-bottom: 40px;
+}
+
+.new-account {
+	margin-top: 15px;
+	font-size: 18px;
+}
+
+.medium-form-input {
+	font-size: 18px;
+}
+
+.snippets-list {
+	margin-top: 30px;	
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.snippet-item {
+	background-color: transparent;
+	margin-top: 10px;
+}
+
+.snippet-item a {
+	color: #003E46;
+	font-size: 20px;
+}
+
+.features .glyphicon {
+	margin-top: 30px;
+	font-size: 30px;
+	color: #1C585F;
+}
+
+.features p {
+	margin-top: 12px;
+	font-size: 18px;
+}
+
+.navbar-default .navbar-nav>.open>a, 
+.navbar-default .navbar-nav>.open>a:focus, 
+.navbar-default .navbar-nav>.open>a:hover {
+	background-color: #fff;	
+}
+
+.btn-default.zeroclipboard-is-hover { 
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad; 
+}
+
+.search-criteria {
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.snippet-code {
+	border-style: none;
+	border-left: 5px solid #ccc;
+  	background-color: transparent;  	
+}
+
+@media only screen and (max-width: 780px) {
+	.snippet-code {
+  		word-spacing: -4px;
+  		-moz-tab-size: 2;
+	  	-o-tab-size: 2;
+	  	tab-size: 2;  
+	  	padding-left: 4px;
+	  	padding-right: 2px;
+	}
+}
+
+.back-btn {
+	margin-bottom: 10px;
+}
+
+.hidden-component {
+	display: none;
+}
