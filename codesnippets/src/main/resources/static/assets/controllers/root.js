@@ -6,16 +6,16 @@
 	Controller.$inject = ['$location', '$rootScope', 'Authentication'];
 	
     function Controller($location, $rootScope, Authentication) {
-    	Authentication.principal().error(errorCallback).success(successCallback);
+    	Authentication.principal().success(successCallback);
         
-        function errorCallback(data, status, headers, config) {
-            $location.path('/welcome');
-            $rootScope.username = '';
-        }
-
         function successCallback(data, status, headers, config) {
-            $rootScope.username = data.principal;
-            $location.path('/home');
+        	if (data && data.principal) {          		
+        		$rootScope.username = data.principal;
+                $location.path('/home');
+                return;
+        	}
+        	
+        	 $location.path('/welcome');
         }
     }
 })();

@@ -13,13 +13,13 @@
         $httpProvider.interceptors.push(interceptorFactory);
     }
     
-    interceptorFactory.$inject = ['$q', '$location'];
+    interceptorFactory.$inject = ['$q', '$location', '$rootScope'];
 
-    function interceptorFactory($q, $location) {
+    function interceptorFactory($q, $location, $rootScope) {
         return {
-        	'responseError': function(rejection) {
-        		console.log("interceptor");
-                if (rejection.status == 401 || rejection.status == 403) {
+        	'responseError': function(rejection) {        		
+                if (rejection.status === 401 || rejection.status === 403){
+                	$rootScope.username = '';
                     $location.path('/signin');
                 }
 

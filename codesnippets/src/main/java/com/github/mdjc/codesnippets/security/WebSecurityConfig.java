@@ -24,9 +24,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		AngularJsUtils.configure(http)
+		AngularJsUtils
+				.configure(http)
 				.authorizeRequests()
-				.antMatchers("/", "/index.html", "/webjars/**", "/assets/**", "/snippets", "/snippets/**", "/users")
+				.antMatchers("/", "/principal", "/index.html", "/webjars/**", "/assets/**", "/snippets",
+						"/snippets/**", "/users")
 				.permitAll()
 				.anyRequest()
 				.authenticated();

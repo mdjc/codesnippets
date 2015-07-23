@@ -12,7 +12,7 @@
 		vm.query = "";
 					
 		vm.submit = function() {
-	        this.find();
+	        find();
 	    };
 	    
 	    vm.hrefViewSnippet = function(snippetOwner) {
@@ -26,7 +26,6 @@
 		function find() {				
 			Snippet.all(vm.query).success(function(data) {
 				vm.searchItems = data;
-				console.log(data);
 			});
 		}
 

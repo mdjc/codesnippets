@@ -1,4 +1,9 @@
 <div class="container">		
+	<p>
+		<button type="button" id="btnCopySnippet" class="btn btn-default btn-md hidden-xs hidden-sm"  clip-copy="vm.snippetItem.snippet.code">
+			<span class="glyphicon glyphicon-copy"></span> Copy
+		</button>
+	</p>
 	<h2 class="text-capitalize">{{vm.snippetItem.snippet.title}}</h2>		
 	<p>Owner: {{vm.snippetItem.username}} </p>
 	<pre class="snippet-code"><code id="code">{{vm.snippetItem.snippet.code}}</code></pre>

@@ -35,7 +35,6 @@
 			
 			for(var i = 0; i < data.length; i++) {
 				items.push({"snippet" : data[i]});
-				console.log("snippet search item " +  {"snippet" : data[i]})
 			}
 			
 			vm.searchItems = items;
