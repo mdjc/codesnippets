@@ -7,8 +7,8 @@
 	    
 		<title>Code Snippets</title>
 		<link rel="stylesheet" href="webjars/bootstrap/3.3.4/css/bootstrap.min.css">
-		<link rel="stylesheet" href="assets/css/main.css">
- 		<link rel="stylesheet" href="assets/css/footer.css">
+		<link rel="stylesheet" href="assets/style/main.css">
+ 		<link rel="stylesheet" href="assets/style/footer.css">
  		
  		<style type="text/css">
 			[ng-cloak] {
@@ -17,11 +17,11 @@
 		</style>
 	</head>
 	<body  class="ng-cloak"  ng-cloak>
-		<div ng-include="'assets/templates/nav.html'"></div>
+		<div ng-include="'assets/layout/topnav.html'"></div>
 		
 		<div ng-view></div>
 				
-		<div ng-include="'assets/templates/footer.html'"></div>
+		<div ng-include="'assets/layout/footer.html'"></div>
 		
 		<!-- change to min version in production -->
 		<script src="webjars/jquery/2.1.3/jquery.js"></script>
@@ -30,21 +30,22 @@
 		<script src="webjars/angularjs/1.4.1/angular-route.js"></script>
 		<script src="webjars/zeroclipboard/2.2.0/ZeroClipboard.js"></script>
 		
+		<script src="assets/domain/alerts.js"></script>
 		<script src="assets/app.js"></script>
-		<script src="assets/http_config.js"></script>
-		<script src="assets/route_config.js"></script>
+		<script src="assets/http.config.js"></script>
+		<script src="assets/routes.config.js"></script>
 		<script src="assets/vendor/ngClip.js"></script>
-		<script src="assets/services/snippet.js"></script>
-		<script src="assets/services/authentication.js"></script>
-		<script src="assets/services/alert.js"></script>
-		<script src="assets/controllers/root.js"></script>
-		<script src="assets/controllers/nav.js"></script>
-		<script src="assets/controllers/signin.js"></script>
-		<script src="assets/controllers/signup.js"></script>
-		<script src="assets/controllers/home.js"></script>
-		<script src="assets/controllers/all_snippets.js"></script>
-		<script src="assets/controllers/view_snippet.js"></script>
-		<script src="assets/controllers/update_snippet.js"></script>
-		<script src="assets/controllers/new_snippet.js"></script>
+		<script src="assets/services/snippet.service.js"></script>
+		<script src="assets/services/authentication.service.js"></script>
+		<script src="assets/services/utils.service.js"></script>
+		<script src="assets/layout/topnav.controller.js"></script>
+		<script src="assets/users/root.controller.js"></script>
+		<script src="assets/users/signin.controller.js"></script>
+		<script src="assets/users/signup.controller.js"></script>
+		<script src="assets/snippets/home.controller.js"></script>
+		<script src="assets/snippets/all-snippets.controller.js"></script>
+		<script src="assets/snippets/view-snippet.controller.js"></script>
+		<script src="assets/snippets/update-snippet.controller.js"></script>
+		<script src="assets/snippets/new-snippet.controller.js"></script>
 	</body>
 </html>

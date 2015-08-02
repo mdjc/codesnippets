@@ -1,24 +1,27 @@
 (function() {
 	'use strict';
-
-	angular.module('codesnippetsApp',[
-	   'ngRoute',
-	   'ngClipboard'
-	])
+	angular
+		.module('codesnippetsApp',['ngRoute', 'ngClipboard'])
+		.config(config)
+		.run(run);
 	
-	.config(['ngClipProvider', function(ngClipProvider) {
-	    ngClipProvider.setPath("assets/vendor/ZeroClipboard.swf");
-	}])
+	config.$inject = ['ngClipProvider'];
+	run.$inject = ['$rootScope', 'authentication']; 
 	
-	.run(['$rootScope', 'Authentication', function($rootScope, Authentication) {
+	function config(ngClipProvider) {
+		ngClipProvider.setPath("assets/vendor/ZeroClipboard.swf");
+	}
+	
+	function run($rootScope, authentication) {
 		$rootScope.username = '';
-		Authentication.principal().success(successCallback);
+		authentication.principal().success(successCallback);
 		
-        function successCallback(data, status, headers, config) {
-        	if (data && data.principal) {        		
-        		$rootScope.username = data.principal;
-        	}
-        }
-		
-	}]);
+	    function successCallback(data, status, headers, config) {
+	    	if (data && data.principal) {        		
+	    		$rootScope.username = data.principal;
+	    	}
+	    }
+	}
+	
+	
 })();

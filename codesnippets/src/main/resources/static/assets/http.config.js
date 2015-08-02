@@ -1,7 +1,9 @@
 (function() {
 	'use strict';
     
-    angular.module('codesnippetsApp').config(config);
+    angular
+    	.module('codesnippetsApp')
+    	.config(config);
     
     config.$inject = ['$httpProvider'];
     
@@ -17,14 +19,16 @@
 
     function interceptorFactory($q, $location, $rootScope) {
         return {
-        	'responseError': function(rejection) {        		
-                if (rejection.status === 401 || rejection.status === 403){
-                	$rootScope.username = '';
-                    $location.path('/signin');
-                }
-
-                return $q.reject(rejection);
-            }
+        	responseError: responseError 
         };
+        
+        function responseError(rejection) {        		
+            if (rejection.status === 401 || rejection.status === 403){
+            	$rootScope.username = '';
+                $location.path('/signin');
+            }
+
+            return $q.reject(rejection);
+        }
     }
 })();
