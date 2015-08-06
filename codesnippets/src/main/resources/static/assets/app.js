@@ -1,7 +1,8 @@
 (function() {
 	'use strict';
+
 	angular
-		.module('codesnippetsApp',['ngRoute', 'ngClipboard'])
+		.module('codesnippetsApp', ['ngRoute', 'ngClipboard'])
 		.config(config)
 		.run(run);
 	
@@ -21,7 +22,6 @@
 	    		$rootScope.username = data.principal;
 	    	}
 	    }
-	}
-	
+	}	
 	
 })();

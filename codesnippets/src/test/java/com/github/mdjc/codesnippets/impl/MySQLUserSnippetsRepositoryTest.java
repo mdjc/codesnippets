@@ -28,28 +28,36 @@ public class MySQLUserSnippetsRepositoryTest extends RepositoryTest {
 
 	@Test
 	public void testAdd() {
-		Snippet actual = mirnaRepository.add(new Snippet(0, "Draw Line", "public class Draw { .... }"));
-		Snippet expected = new Snippet(6, "Draw Line", "public class Draw { .... }");
+		Snippet actual = mirnaRepository.add(Snippet.of(0, "Draw Line", "public class Draw { .... }", "Java",
+				"Draw description"));
+		Snippet expected = Snippet.of(6, "Draw Line", "public class Draw { .... }", "Java", "Draw description");
 
 		assertEquals(expected, actual);
+		assertEquals(expected.getCode(), actual.getCode());
+		assertEquals(expected.getLanguage(), actual.getLanguage());
+		assertEquals(expected.getDescription(), actual.getDescription());
 	}
 
 	@Test(expected = DuplicateSnippetException.class)
 	public void testAddDuplicates() {
-		mirnaRepository.add(new Snippet(0L, "Draw Line", "public class Draw { .... }"));
-		mirnaRepository.add(new Snippet(0L, "Draw Line", "public class Draw { .... }"));
+		mirnaRepository.add(Snippet.of(0L, "Draw Line", "public class Draw { .... }"));
+		mirnaRepository.add(Snippet.of(0L, "Draw Line", "public class Draw { .... }"));
 	}
 
 	@Test
 	public void testUpdate() {
-		Snippet expected = new Snippet(5, "Quick Sort", "public class QuickSort() {}");
+		Snippet expected = Snippet.of(5, "Quick Sort", "public class QuickSort() {}");
 		Snippet actual = mirnaRepository.update(expected);
 		assertEquals(expected, actual);
+		assertEquals(expected, actual);
+		assertEquals(expected.getCode(), actual.getCode());
+		assertEquals(expected.getLanguage(), actual.getLanguage());
+		assertEquals(expected.getDescription(), actual.getDescription());
 	}
 
 	@Test(expected = NoSuchElementException.class)
 	public void testUpdateUnexistent() {
-		Snippet snippet = new Snippet(6, "Quit Sort2356 Unknown", "public class MergeSort() {}");
+		Snippet snippet = Snippet.of(6, "Quit Sort2356 Unknown", "public class MergeSort() {}");
 		mirnaRepository.update(snippet);
 	}
 
@@ -62,9 +70,9 @@ public class MySQLUserSnippetsRepositoryTest extends RepositoryTest {
 	@Test
 	public void testFindAllExistent() {
 		List<Snippet> expected = new ArrayList<>();
-		expected.add(new Snippet(3, "Heap Sort", "public class MergeSort() {}"));
-		expected.add(new Snippet(4, "Merge Sort", "public class MergeSort() {}"));
-		expected.add(new Snippet(5, "Quit Sort", "public class MergeSort() {}"));
+		expected.add(Snippet.of(3, "Heap Sort", "public class MergeSort() {}"));
+		expected.add(Snippet.of(4, "Merge Sort", "public class MergeSort() {}"));
+		expected.add(Snippet.of(5, "Quit Sort", "public class MergeSort() {}"));
 		List<Snippet> actual = mirnaRepository.find("");
 		assertEquals(expected, actual);
 	}
@@ -72,7 +80,7 @@ public class MySQLUserSnippetsRepositoryTest extends RepositoryTest {
 	@Test
 	public void testFindAllByCriteria() {
 		List<Snippet> expected = new ArrayList<>();
-		expected.add(new Snippet(4, "Heap Sort", "public class MergeSort() {}"));
+		expected.add(Snippet.of(4, "Heap Sort", "public class MergeSort() {}"));
 		List<Snippet> actual = mirnaRepository.find("Heap");
 		assertEquals(expected, actual);
 	}

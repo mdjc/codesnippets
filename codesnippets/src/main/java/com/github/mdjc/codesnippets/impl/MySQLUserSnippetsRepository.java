@@ -20,9 +20,11 @@ import com.github.mdjc.codesnippets.domain.User;
 import com.github.mdjc.codesnippets.domain.UserSnippetsRepository;
 
 public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserSnippetsRepository {
-	public static final RowMapper<Snippet> SNIPPET_MAPPER = (rs, row) -> new Snippet(rs.getLong("snippet_id"),
+	public static final RowMapper<Snippet> SNIPPET_MAPPER = (rs, row) -> Snippet.of(rs.getLong("snippet_id"),
 			rs.getString("snippet_title"),
-			rs.getString("snippet_code"));
+			rs.getString("snippet_code"),
+			rs.getString("snippet_language"),
+			rs.getString("snippet_description"));
 
 	private final User user;
 
@@ -37,19 +39,23 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 			PreparedStatementCreator psc = con -> {
 				PreparedStatement ps = con
 						.prepareStatement(
-								"INSERT INTO snippets (snippet_user, snippet_title, snippet_code) "
-										+ " VALUES((select user_id from users where user_name = ?), ?, ?)",
+								"INSERT INTO snippets set snippet_user = (select user_id from users where user_name = ?),"
+										+ " snippet_title = ?, snippet_code = ?, snippet_language = ?, snippet_description = ?",
 								Statement.RETURN_GENERATED_KEYS);
 				ps.setString(1, user.getName());
 				ps.setString(2, snippet.getTitle());
 				ps.setString(3, snippet.getCode());
+				ps.setString(4, snippet.getLanguage());
+				ps.setString(5, snippet.getDescription());
+
 				return ps;
 			};
 
 			KeyHolder keyHolder = new GeneratedKeyHolder();
 			getJdbcTemplate().update(psc, keyHolder);
 
-			return new Snippet(keyHolder.getKey().longValue(), snippet.getTitle(), snippet.getCode());
+			return Snippet.of(keyHolder.getKey().longValue(), snippet.getTitle(), snippet.getCode(),
+					snippet.getLanguage(), snippet.getDescription());
 		} catch (DuplicateKeyException e) {
 			throw new DuplicateSnippetException(user, snippet);
 		}
@@ -61,9 +67,10 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 		try {
 			int affectedRows = getJdbcTemplate()
 					.update(
-							"UPDATE snippets SET snippet_title = ?, snippet_code = ? "
+							"UPDATE snippets SET snippet_title = ?, snippet_code = ?, snippet_language = ?, snippet_description = ?"
 									+ " WHERE snippet_user = (select user_id from users where user_name = ?) AND snippet_id = ?",
-							snippet.getTitle(), snippet.getCode(), user.getName(), snippet.getId());
+							snippet.getTitle(), snippet.getCode(), snippet.getLanguage(), snippet.getDescription(),
+							user.getName(), snippet.getId());
 
 			if (affectedRows == 0) {
 				throw new NoSuchElementException(String.format("snippet: %s does not exists", snippet));
@@ -78,7 +85,7 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 	@Override
 	public List<Snippet> find(String query) {
 		return getJdbcTemplate().query(
-				"SELECT snippet_id, snippet_title, snippet_code FROM snippets "
+				"SELECT * FROM snippets "
 						+ " JOIN users on snippet_user=user_id "
 						+ " WHERE user_name = ?"
 						+ " AND concat(snippet_title, snippet_code) like concat('%', ?, '%') order by snippet_title",

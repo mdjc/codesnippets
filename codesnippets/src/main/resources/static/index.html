@@ -9,14 +9,8 @@
 		<link rel="stylesheet" href="webjars/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link rel="stylesheet" href="assets/style/main.css">
  		<link rel="stylesheet" href="assets/style/footer.css">
- 		
- 		<style type="text/css">
-			[ng-cloak] {
-				display: none;
-			}
-		</style>
 	</head>
-	<body  class="ng-cloak"  ng-cloak>
+	<body>
 		<div ng-include="'assets/layout/topnav.html'"></div>
 		
 		<div ng-view></div>
@@ -32,6 +26,7 @@
 		
 		<script src="assets/domain/alerts.js"></script>
 		<script src="assets/app.js"></script>
+		<script src="assets/app.constants.js"></script>
 		<script src="assets/http.config.js"></script>
 		<script src="assets/routes.config.js"></script>
 		<script src="assets/vendor/ngClip.js"></script>

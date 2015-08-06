@@ -5,16 +5,22 @@
 		.module('codesnippetsApp')
 		.controller('NewSnippetController', Controller);
 	
-	Controller.$inject = ['$rootScope', 'snippet', 'utils'];
+	Controller.$inject = ['$rootScope', 'snippet', 'utils', 'Languages'];
 	
-	function Controller($rootScope, snippet, utils) {
+	function Controller($rootScope, snippet, utils, Languages) {
 		var vm = this;
 		
+		vm.action = "Create";
+		vm.languages = 	Languages;	
+		vm.snippet = {id: 0, title: "", code: "", language: "", description: ""};
 		vm.submit = submit;
-			
+		
 		function submit() {
-			var snippetObj = {id: 0, title: vm.title, code: vm.code};
-			snippet.nw($rootScope.username, snippetObj).error(errorCallback).success(successCallback);
+			if (vm.language) {
+				vm.snippet.language = vm.language.name;
+			}
+			
+			snippet.nw($rootScope.username, vm.snippet).error(errorCallback).success(successCallback);
 		}
 		
 		function errorCallback(data, status, headers, config) {

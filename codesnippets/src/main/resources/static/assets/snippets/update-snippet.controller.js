@@ -5,12 +5,14 @@
 		.module('codesnippetsApp')
 		.controller('UpdateSnippetController', Controller);
 	
-	Controller.$inject = ['$rootScope', '$routeParams', '$location', 'snippet', 'utils'];
+	Controller.$inject = ['$rootScope', '$routeParams', '$location', 'snippet', 'utils', 'Languages'];
 	
-    function Controller($rootScope, $routeParams, $location, snippet, utils) {
+    function Controller($rootScope, $routeParams, $location, snippet, utils, Languages) {
     	var vm = this;
     	
-    	vm.update = update;
+    	vm.action = "Update";
+    	vm.languages = 	Languages;
+    	vm.submit = submit;
     	    
     	activate();
     	
@@ -18,8 +20,11 @@
     		snippet.view($routeParams['id']).success(viewSuccessCallback);
     	}
     		
-    	function update() {
-    		snippet.update($rootScope.username, vm.snippetItem.snippet).error(updateErrorCallback).success(updateSuccessCallback);
+    	function submit() {
+    		if (vm.language) {
+				vm.snippet.language = vm.language.name;
+			}
+    		snippet.update($rootScope.username, vm.snippet).error(updateErrorCallback).success(updateSuccessCallback);
     	}
     	
     	function updateSuccessCallback(data, status, headers, config) {
@@ -39,7 +44,8 @@
         		$location.path('allsnippets/' + data.snippet.id);
         		return;
         	}
-            vm.snippetItem = data;
+            vm.snippet = data.snippet;
+            vm.language = utils.getLanguageObj(data.snippet.language);
         }
     }
 })();

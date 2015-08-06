@@ -10,6 +10,8 @@ CREATE TABLE snippets (
 	snippet_user INT NOT NULL REFERENCES users(user_id),
 	snippet_title VARCHAR(60) NOT NULL,
 	snippet_code VARCHAR(4000) NOT NULL,
+	snippet_description VARCHAR(330),
+	snippet_language VARCHAR(40),
 	UNIQUE(snippet_user, snippet_title)
 );
 

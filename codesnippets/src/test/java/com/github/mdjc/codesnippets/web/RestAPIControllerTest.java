@@ -102,7 +102,7 @@ public class RestAPIControllerTest extends RestControllerTest {
 
 	@Test
 	public void addSnippet() throws Exception {
-		Snippet snippet = new Snippet(0, "my test tile", "some code goes here { .... }");
+		Snippet snippet = Snippet.of(0, "my test tile", "some code goes here { .... }", "PHP", "This a sample");
 		String jsonSnippet = json(snippet);
 		long maxId = snippetSearchItems.stream().map(e -> e.getSnippet().getId()).max((x, y) -> Long.compare(x, y))
 				.get();
@@ -113,7 +113,9 @@ public class RestAPIControllerTest extends RestControllerTest {
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id", is((int) maxId + 1)))
 				.andExpect(jsonPath("$.title", is(snippet.getTitle())))
-				.andExpect(jsonPath("$.code", is(snippet.getCode())));
+				.andExpect(jsonPath("$.code", is(snippet.getCode())))
+				.andExpect(jsonPath("$.language", is(snippet.getLanguage())))
+				.andExpect(jsonPath("$.description", is(snippet.getDescription())));
 
 	}
 
@@ -138,7 +140,8 @@ public class RestAPIControllerTest extends RestControllerTest {
 
 	@Test
 	public void updateSnippet() throws Exception {
-		Snippet snippet = new Snippet(snippetSearchItems.get(0).getSnippet().getId(), "changed title", "changedCode");
+		Snippet snippet = Snippet.of(snippetSearchItems.get(0).getSnippet().getId(), "changed title", "changedCode",
+				"JavaScript", "Changed description");
 		String jsonSnippet = json(snippet);
 		mockMvc.perform(put(String.format("/users/%s/snippets", snippetSearchItems.get(0).getUsername()))
 				.contentType(MediaType.APPLICATION_JSON)
@@ -147,13 +150,15 @@ public class RestAPIControllerTest extends RestControllerTest {
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.id", is((int) snippet.getId())))
 				.andExpect(jsonPath("$.title", is(snippet.getTitle())))
-				.andExpect(jsonPath("$.code", is(snippet.getCode())));
+				.andExpect(jsonPath("$.code", is(snippet.getCode())))
+				.andExpect(jsonPath("$.language", is(snippet.getLanguage())))
+				.andExpect(jsonPath("$.description", is(snippet.getDescription())));
 
 	}
 
 	@Test
 	public void updateSnippetSetDuplicateTitle() throws Exception {
-		Snippet snippet = new Snippet(snippetSearchItems.get(0).getSnippet().getId(), snippetSearchItems.get(1)
+		Snippet snippet = Snippet.of(snippetSearchItems.get(0).getSnippet().getId(), snippetSearchItems.get(1)
 				.getSnippet().getTitle(), "changedCode");
 		String jsonSnippet = json(snippet);
 		mockMvc.perform(put(String.format("/users/%s/snippets", snippetSearchItems.get(0).getUsername()))

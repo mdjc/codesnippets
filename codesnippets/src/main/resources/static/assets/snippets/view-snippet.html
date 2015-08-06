@@ -6,5 +6,7 @@
 	</p>
 	<h2 class="text-capitalize">{{vm.snippetItem.snippet.title}}</h2>		
 	<p>Owner: {{vm.snippetItem.username}} </p>
+	<p ng-if="vm.snippetItem.snippet.language">Language: {{vm.snippetItem.snippet.language}} </p>
+	<p ng-if="vm.snippetItem.snippet.description">{{vm.snippetItem.snippet.description}} </p>
 	<pre class="snippet-code"><code id="code">{{vm.snippetItem.snippet.code}}</code></pre>
 </div>

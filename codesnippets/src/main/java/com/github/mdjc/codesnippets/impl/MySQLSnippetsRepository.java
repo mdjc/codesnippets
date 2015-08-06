@@ -25,7 +25,7 @@ public class MySQLSnippetsRepository extends JdbcDaoSupport implements SnippetsR
 	public SnippetSearchItem get(long id) {
 		try {
 			return getJdbcTemplate().queryForObject(
-					"SELECT s.snippet_id, s.snippet_title, s.snippet_code, u.user_name FROM snippets s "
+					"SELECT * FROM snippets s "
 							+ "JOIN users u on u.user_id = s.snippet_user WHERE s.snippet_id = ? ",
 					SEARCH_IT_MAPPER, id);
 		} catch (IncorrectResultSizeDataAccessException e) {
@@ -37,7 +37,7 @@ public class MySQLSnippetsRepository extends JdbcDaoSupport implements SnippetsR
 	public List<SnippetSearchItem> allSnippets(String query) {
 		return getJdbcTemplate()
 				.query(
-						"SELECT s.snippet_id, s.snippet_title, s.snippet_code, u.user_name FROM snippets s "
+						"SELECT * FROM snippets s "
 								+ "JOIN users u on u.user_id = s.snippet_user"
 								+ " WHERE concat(s.snippet_title, s.snippet_code) like concat('%', ?, '%') order by s.snippet_title",
 						SEARCH_IT_MAPPER, query);

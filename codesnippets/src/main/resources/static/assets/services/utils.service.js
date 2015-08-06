@@ -3,12 +3,13 @@
 		.module("codesnippetsApp")
 		.factory("utils", factory);
 	
-	factory.$inject = ['$timeout', '$location'];	
+	factory.$inject = ['$timeout', '$location', 'Languages'];	
 	
-	function factory($timeout, $location) {
+	function factory($timeout, $location, Languages) {
 		var service =  {
 			delayedClear: delayedClear,
-			delayedRedirect: delayedRedirect
+			delayedRedirect: delayedRedirect,
+			getLanguageObj: getLanguageObj
 			
 		};
 		
@@ -37,5 +38,14 @@
 		    	$location.path(path);
 		    }
 		}
+		
+		function getLanguageObj(languageName) {
+			var i;
+			for (i in Languages) {				
+				if (Languages[i].name === languageName) {
+					return Languages[i];
+				}  
+			}
+	    }
 	}
 })();

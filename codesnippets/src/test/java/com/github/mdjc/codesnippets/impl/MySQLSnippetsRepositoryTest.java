@@ -30,12 +30,14 @@ public class MySQLSnippetsRepositoryTest extends RepositoryTest {
 
 	@Test
 	public void testGetExistentSnippet() {
-		Snippet snippet = new Snippet(1L, "Binary Search", "public class search() {}");
+		Snippet snippet = Snippet.of(1L, "Binary Search", "public class search() {}", "Java", "class for searching");
 		SnippetSearchItem expected = new SnippetSearchItem(testUser.getName(), snippet);
 		SnippetSearchItem actual = snippetsRepository.get(1L);
 
 		assertEquals(expected, actual);
 		assertEquals(snippet.getCode(), actual.getSnippet().getCode());
+		assertEquals(snippet.getLanguage(), actual.getSnippet().getLanguage());
+		assertEquals(snippet.getDescription(), actual.getSnippet().getDescription());
 	}
 
 	@Test(expected = NoSuchElementException.class)
@@ -46,8 +48,8 @@ public class MySQLSnippetsRepositoryTest extends RepositoryTest {
 	@Test
 	public void testFindByCriteria1() {
 		List<SnippetSearchItem> expected = new ArrayList<>();
-		Snippet snippet1 = new Snippet(1, "Binary Search", "public class search() {}");
-		Snippet snippet2 = new Snippet(2, "Find Object", "public class search() {}");
+		Snippet snippet1 = Snippet.of(1, "Binary Search", "public class search() {}", "Java", "class for searching");
+		Snippet snippet2 = Snippet.of(2, "Find Object", "public class search() {}", "Java", "description test");
 		expected.add(new SnippetSearchItem(testUser.getName(), snippet1));
 		expected.add(new SnippetSearchItem(testUser.getName(), snippet2));
 
@@ -67,15 +69,15 @@ public class MySQLSnippetsRepositoryTest extends RepositoryTest {
 	@Test
 	public void testFindAllExistent() {
 		List<SnippetSearchItem> expected = new ArrayList<>();
-		expected.add(new SnippetSearchItem(testUser.getName(), new Snippet(1, "Binary Search",
-				"public class search() {}")));
+		expected.add(new SnippetSearchItem(testUser.getName(), Snippet.of(1, "Binary Search",
+				"public class search() {}", "Java", "class for searching")));
 		expected.add(new SnippetSearchItem(testUser.getName(),
-				new Snippet(2, "Find Object", "public class search() {}")));
-		expected.add(new SnippetSearchItem(mirnaUser.getName(), new Snippet(3, "Heap Sort",
+				Snippet.of(2, "Find Object", "public class search() {}", "Java", "description test")));
+		expected.add(new SnippetSearchItem(mirnaUser.getName(), Snippet.of(3, "Heap Sort",
 				"public class MergeSort() {}")));
-		expected.add(new SnippetSearchItem(mirnaUser.getName(), new Snippet(4, "Merge Sort",
+		expected.add(new SnippetSearchItem(mirnaUser.getName(), Snippet.of(4, "Merge Sort",
 				"public class MergeSort() {}")));
-		expected.add(new SnippetSearchItem(mirnaUser.getName(), new Snippet(5, "Quit Sort",
+		expected.add(new SnippetSearchItem(mirnaUser.getName(), Snippet.of(5, "Quit Sort",
 				"public class MergeSort() {}")));
 
 		List<SnippetSearchItem> actual = snippetsRepository.allSnippets("");
