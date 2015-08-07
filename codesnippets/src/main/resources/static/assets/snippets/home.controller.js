@@ -10,7 +10,7 @@
 	function Controller($rootScope, snippet) {
 		var vm = this;
 					
-		vm.hrefViewSnippet = hrefViewSnippet;
+		vm.viewSnippetPathPrefix = viewSnippetPathPrefix;
 		vm.searchph = "search my snippets";
 		vm.searchItems = [];
 		vm.query = '';
@@ -18,13 +18,17 @@
 
 		activate();
 	    
-	    function hrefViewSnippet(snippetOwner) {
+	    function viewSnippetPathPrefix(snippetOwner) {
 	    	return "home/snippets";
 	    }
 	    
 	    function activate() {				
-	    	snippet.allFor($rootScope.username, vm.query).error(errorCallback).success(successCallback);	
+	    	find();
 		}
+	    
+	    function find(){
+	    	snippet.allFor($rootScope.username, vm.query).error(errorCallback).success(successCallback);
+	    }
 	    
 	    function errorCallback(data, status, headers, config) {
 	    	vm.alert = codesnippets.alerts.error("Unexpected Error");
