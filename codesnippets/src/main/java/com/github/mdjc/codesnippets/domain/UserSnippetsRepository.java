@@ -21,6 +21,11 @@ public interface UserSnippetsRepository {
 		public Snippet add(Snippet snippet) throws DuplicateSnippetException {
 			return Snippet.NULL;
 		}
+
+		@Override
+		public Snippet delete(Snippet snippet) {
+			return Snippet.NULL;
+		}
 	};
 
 	Snippet add(Snippet snippet) throws DuplicateSnippetException;
@@ -28,4 +33,6 @@ public interface UserSnippetsRepository {
 	Snippet update(Snippet snippet) throws NoSuchElementException;
 
 	List<Snippet> find(String query);
+
+	Snippet delete(Snippet snippet);
 }

@@ -10,15 +10,19 @@
 	function Controller($rootScope, snippet) {
 		var vm = this;
 			    
-		vm.hrefViewSnippet = hrefViewSnippet;
-		vm.searchph = "search all snippets";
-		vm.searchItems = [];
+		vm.viewSnippetPathPrefix = viewSnippetPathPrefix;
 		vm.query = "";
+		vm.searchItems = [];
+		vm.searchph = "search all snippets";
 		vm.submit = find;
 	    	
 	    activate();	
 	    		
-		function hrefViewSnippet(snippetOwner) {
+	    function activate() {				
+	    	find();
+	    }
+		
+	    function viewSnippetPathPrefix(snippetOwner) {
 	    	if (snippetOwner === $rootScope.username) {
 		    	return "home/snippets";
 	    	}
@@ -26,7 +30,7 @@
 	    	return "allsnippets";
 	    }
 
-		function activate() {				
+		function find() {
 			snippet.all(vm.query).success(successCallBack);
 		}
 		

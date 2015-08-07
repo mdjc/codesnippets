@@ -11,6 +11,7 @@
 			allFor: allFor,
 			nw: nw,
 			update: update,
+			delt: delt,
 			view: view
 		};
 		
@@ -30,6 +31,20 @@
 		
 		function update(username, snippet) {
 			return $http.put('/users/' + username +'/snippets/', snippet);
+		}
+		
+		function delt(username, snippet) {
+			var config = { 
+						data : {'id': snippet.id, 
+									'title': snippet.title, 
+									'code' : snippet.code, 
+									'language': snippet.language, 
+									'description': snippet.description
+								},
+								
+						headers: { 'Content-Type': 'application/json;charset=UTF-8'}
+					};
+			return $http.delete('/users/' + username +'/snippets/', config);
 		}
 		
 		function view(id) {

@@ -81,4 +81,9 @@ public class RestAPIController {
 	public Snippet updateSnippet(@PathVariable String name, @RequestBody Snippet snippet) {
 		return usersRepository.get(name).updateSnippet(snippet);
 	}
+
+	@RequestMapping(method = RequestMethod.DELETE, value = "/users/{name}/snippets")
+	public Snippet deleteSnippet(@PathVariable String name, @RequestBody Snippet snippet) {
+		return usersRepository.get(name).deleteSnippet(snippet);
+	}
 }

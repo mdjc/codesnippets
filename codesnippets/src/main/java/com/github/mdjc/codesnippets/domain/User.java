@@ -49,6 +49,10 @@ public class User implements Comparable<User> {
 		return snippetsRepository.update(snippet);
 	}
 
+	public Snippet deleteSnippet(Snippet snippet) {
+		return snippetsRepository.delete(snippet);
+	}
+
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) {

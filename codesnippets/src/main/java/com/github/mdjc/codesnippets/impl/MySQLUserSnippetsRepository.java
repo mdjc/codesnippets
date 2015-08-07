@@ -92,4 +92,17 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 				SNIPPET_MAPPER, user.getName(), query.trim());
 	}
 
+	@Override
+	public Snippet delete(Snippet snippet) {
+		int affectedRows = getJdbcTemplate()
+				.update(
+						"DELETE from snippets where snippet_id = ?", snippet.getId());
+
+		if (affectedRows == 0) {
+			throw new NoSuchElementException(String.format("snippet: %s does not exists", snippet));
+		}
+
+		return snippet;
+	}
+
 }
