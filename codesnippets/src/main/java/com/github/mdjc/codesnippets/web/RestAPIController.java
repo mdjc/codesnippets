@@ -60,14 +60,13 @@ public class RestAPIController {
 			@PathVariable String name,
 			@RequestParam(defaultValue = "") String query) {
 		User user = usersRepository.get(name);
-		return user.findSnippet(query);
+		return user.getSnippetsRepository().find(query);
 	}
 
-	// TODO: compare user against principal
 	@RequestMapping(method = RequestMethod.POST, value = "/users/{name}/snippets")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Snippet> addSnippet(@PathVariable String name, @RequestBody Snippet snippet) {
-		Snippet result = usersRepository.get(name).addSnippet(snippet);
+		Snippet result = usersRepository.get(name).getSnippetsRepository().add(snippet);
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -79,11 +78,11 @@ public class RestAPIController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/users/{name}/snippets")
 	public Snippet updateSnippet(@PathVariable String name, @RequestBody Snippet snippet) {
-		return usersRepository.get(name).updateSnippet(snippet);
+		return usersRepository.get(name).getSnippetsRepository().update(snippet);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/users/{name}/snippets")
 	public Snippet deleteSnippet(@PathVariable String name, @RequestBody Snippet snippet) {
-		return usersRepository.get(name).deleteSnippet(snippet);
+		return usersRepository.get(name).getSnippetsRepository().delete(snippet);
 	}
 }

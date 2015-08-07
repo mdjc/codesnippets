@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 
 public interface UserSnippetsRepository {
 	UserSnippetsRepository NULL = new UserSnippetsRepository() {
-
 		@Override
 		public Snippet update(Snippet snippet) throws NoSuchElementException {
 			return Snippet.NULL;

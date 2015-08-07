@@ -1,8 +1,5 @@
 package com.github.mdjc.codesnippets.domain;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-
 import com.github.mdjc.commons.IllegalArguments;
 
 public class User implements Comparable<User> {
@@ -33,24 +30,8 @@ public class User implements Comparable<User> {
 		return password;
 	}
 
-	public Snippet addSnippet(Snippet snippet) throws DuplicateSnippetException {
-		if ("".equals(snippet.getTitle()) || "".equals(snippet.getCode())) {
-			throw new IllegalArgumentException("snippet title and snippet code cannot be empty");
-		}
-
-		return snippetsRepository.add(snippet);
-	}
-
-	public List<Snippet> findSnippet(String query) {
-		return snippetsRepository.find(query);
-	}
-
-	public Snippet updateSnippet(Snippet snippet) throws NoSuchElementException {
-		return snippetsRepository.update(snippet);
-	}
-
-	public Snippet deleteSnippet(Snippet snippet) {
-		return snippetsRepository.delete(snippet);
+	public UserSnippetsRepository getSnippetsRepository() {
+		return snippetsRepository;
 	}
 
 	@Override
