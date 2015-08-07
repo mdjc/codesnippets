@@ -3,19 +3,19 @@
 
 	angular
 		.module('codesnippetsApp')
-		.controller('NewSnippetController', Controller);
+		.controller('CreateSnippetController', Controller);
 	
 	Controller.$inject = ['$rootScope', 'snippet', 'utils', 'Languages'];
 	
 	function Controller($rootScope, snippet, utils, Languages) {
 		var vm = this;
 		
-		vm.action = "Create";
+		vm.mainActionLabel = "Create";
 		vm.languages = 	Languages;	
 		vm.snippet = {id: 0, title: "", code: "", language: "", description: ""};
-		vm.submit = submit;
+		vm.submit = create;
 		
-		function submit() {
+		function create() {
 			if (vm.language) {
 				vm.snippet.language = vm.language.name;
 			}
@@ -32,7 +32,7 @@
 
 	    function successCallback(data, status, headers, config) {
 	    	vm.alert = codesnippets.alerts.info("Your snippet has been created!")
-	    	utils.delayedRedirect('/home');
+	    	utils.delayedRedirect('/mysnippets');
 	    }
 	}   
 })();

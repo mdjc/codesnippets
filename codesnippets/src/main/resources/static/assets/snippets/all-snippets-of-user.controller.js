@@ -3,25 +3,20 @@
 
 	angular
 		.module('codesnippetsApp')
-		.controller('HomeController', Controller);
+		.controller('AllSnippetsOfUserController', Controller);
 	
 	Controller.$inject = ['$rootScope', 'snippet'];
 	
 	function Controller($rootScope, snippet) {
 		var vm = this;
 					
-		vm.viewSnippetPathPrefix = viewSnippetPathPrefix;
 		vm.searchph = "search my snippets";
 		vm.searchItems = [];
 		vm.query = '';
 		vm.submit = find;
 
 		activate();
-	    
-	    function viewSnippetPathPrefix(snippetOwner) {
-	    	return "home/snippets";
-	    }
-	    
+ 
 	    function activate() {				
 	    	find();
 		}

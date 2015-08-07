@@ -5,25 +5,77 @@
 		.module('codesnippetsApp')
 		.controller('ViewSnippetController', Controller);
 	
-	Controller.$inject = ['$routeParams', 'snippet'];
+	Controller.$inject = ['$routeParams', '$rootScope', '$location', 'Languages', 'snippet', 'utils'];
 	
-    function Controller($routeParams, snippet) {
+    function Controller($routeParams, $rootScope, $location, Languages,  snippet, utils) {
     	var vm = this;
     	
-    	vm.copythis = copythis; 
-    		
+    	vm.isUserSnippet = isUserSnippet;
+    	vm.snippet = {};
+    	vm.snippetOwner = "";
+    	vm.languages = 	Languages;
+    	vm.language = {};
+    	vm.mainActionLabel = "Update";
+    	vm.submit = update;
+    	vm.delt = delt;
+    	
     	activate();
     	
     	function activate() {
-    		snippet.view($routeParams['id']).success(successCallback);
+    		snippet.view($routeParams['id']).success(viewSuccessCallback);
+    	}    	
+        
+        function viewSuccessCallback(data, status, headers, config) {
+            vm.snippet = data.snippet;
+            vm.snippetOwner = data.username;
+            vm.language = utils.getLanguageObj(data.snippet.language);
+        }
+        
+        function isUserSnippet(){
+        	return vm.snippetOwner == $rootScope.username;
+        }
+    	
+    	function update() {
+    		if (vm.language) {
+				vm.snippet.language = vm.language.name;
+			}
+    		snippet.update($rootScope.username, vm.snippet).error(updateErrorCallback).success(updateSuccessCallback);
     	}
     	
-    	function copythis() {
-    		return vm.snippetItem.snippet.code;
+    	function updateSuccessCallback(data, status, headers, config) {
+    		vm.alert = codesnippets.alerts.info("Your snippet has been updated!");
+    		utils.delayedClear(vm.alert);
     	}
-        
-        function successCallback(data, status, headers, config) {
-            vm.snippetItem = data;
-        }
+    	
+    	function updateErrorCallback(data, status, headers, config) {
+    		vm.alert = new codesnippets.alerts.ErrorBuilder()
+        		.when(422, "You already have an snippet under this title")
+        		.build(status, "Unexpected error");
+    		utils.delayedClear(vm.alert);
+    	}
+    	
+    	function delt() {
+    		vm.alert = codesnippets.alerts.info("Deleting...");
+    		$('#delete-modal-sm').on('hidden.bs.modal', function (e) {
+    			$('#delete-modal-sm').on('hidden.bs.modal', function (e) { });
+    			console.log("hidden completed");
+    			console.log(e);
+    			snippet.delt($rootScope.username, vm.snippet).error(deleteErrorCallback).success(deleteSuccessCallback);
+    		});
+    		
+    		$('#delete-modal-sm').modal('hide');
+    	}
+    	
+    	function deleteSuccessCallback(data, status, headers, config) {
+    		vm.alert = codesnippets.alerts.info("Your snippet has been deleted!");
+    		utils.delayedRedirect('mysnippets');
+    	}
+    	
+    	function deleteErrorCallback(data, status, headers, config) {
+    		vm.alert = new codesnippets.alerts.ErrorBuilder()
+        		.when(404, "This snippet doesn't exists")
+        		.build(status, "Unexpected error");
+    		utils.delayedClear(vm.alert);
+    	}
     }
 })();

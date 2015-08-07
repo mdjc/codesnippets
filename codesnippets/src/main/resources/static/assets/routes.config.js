@@ -15,9 +15,8 @@
 			.when('/welcome', route('', 'welcome'))
 			.when('/signin',route('SignInController', 'users/signin'))
 			.when('/signup', route('SignUpController','users/signup'))
-			.when('/home', route('HomeController', 'snippets/snippets-list'))
-			.when('/home/snippets/:id', route('UpdateSnippetController', 'snippets/update-snippet')) 
-			.when('/newsnippet', route('NewSnippetController', 'snippets/update-snippet'))
+			.when('/mysnippets', route('AllSnippetsOfUserController', 'snippets/snippets-list'))
+			.when('/newsnippet', route('CreateSnippetController', 'snippets/snippet-form'))
 			.otherwise({redirectTo: '/'});
 	}	
 		

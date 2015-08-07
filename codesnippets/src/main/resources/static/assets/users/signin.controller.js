@@ -16,7 +16,7 @@
         	
         function signIn() {
         	if ($rootScope.username) {
-        		$location.path('/home');
+        		$location.path('/mysnippets');
         		return;
         	}
         	
@@ -38,7 +38,7 @@
         
         function successCallback(data, status, headers, config) {
             $rootScope.username = data.principal;
-            $location.path('/home');
+            $location.path('/mysnippets');
         }
     }
 })();

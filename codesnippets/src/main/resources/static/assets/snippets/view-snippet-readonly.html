@@ -1,0 +1,12 @@
+<div class="container">		
+	<p>
+		<button type="button" id="btnCopySnippet" class="btn btn-default btn-md hidden-xs hidden-sm"  clip-copy="vm.snippet.code">
+			<span class="glyphicon glyphicon-copy"></span> Copy
+		</button>
+	</p>
+	<h2 class="text-capitalize">{{vm.snippet.title}}</h2>		
+	<p>Owner: {{vm.snippetOwner}} </p>
+	<p ng-if="vm.snippet.language">Language: {{vm.snippet.language}} </p>
+	<p ng-if="vm.snippet.description">{{vm.snippet.description}} </p>
+	<pre class="snippet-code"><code id="code">{{vm.snippet.code}}</code></pre>
+</div>

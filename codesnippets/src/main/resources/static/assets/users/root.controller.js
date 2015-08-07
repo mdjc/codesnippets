@@ -19,7 +19,7 @@
         function successCallback(data, status, headers, config) {
         	if (data && data.principal) {          		
         		$rootScope.username = data.principal;
-                $location.path('/home');
+                $location.path('/mysnippets');
                 return;
         	}
         	

@@ -31,7 +31,7 @@
 		}
 		
 		function delayedRedirect(path, time) {
-			time = time || 2000;
+			time = time || 3000;
 			$timeout(redirect, time);
 		    	
 		    function redirect() {

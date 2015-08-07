@@ -27,7 +27,7 @@
 	<div class="row snippets-list">
 		<ul class="list-group">
 			<li ng-repeat="searchItem in vm.searchItems" class="list-group-item snippet-item">
-				<a ng-href="#/{{vm.viewSnippetPathPrefix(searchItem.username)}}/{{searchItem.snippet.id}}">{{searchItem.snippet.title}}</a>						
+				<a ng-href="#/allsnippets/{{searchItem.snippet.id}}">{{searchItem.snippet.title}}</a>						
 			</li>
 		</ul>
 	</div>
