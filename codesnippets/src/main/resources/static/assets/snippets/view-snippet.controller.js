@@ -10,7 +10,7 @@
     function Controller($routeParams, $rootScope, $location, Languages,  snippet, utils) {
     	var vm = this;
     	
-    	vm.isUserSnippet = isUserSnippet;
+    	vm.snippetOwned = false;
     	vm.snippet = {};
     	vm.snippetOwner = "";
     	vm.languages = 	Languages;
@@ -22,17 +22,14 @@
     	activate();
     	
     	function activate() {
-    		snippet.view($routeParams['id']).success(viewSuccessCallback);
+    		snippet.view($routeParams['id']).success(viewSuccessCallback); 
     	}    	
         
         function viewSuccessCallback(data, status, headers, config) {
             vm.snippet = data.snippet;
             vm.snippetOwner = data.username;
             vm.language = utils.getLanguageObj(data.snippet.language);
-        }
-        
-        function isUserSnippet(){
-        	return vm.snippetOwner == $rootScope.username;
+            vm.snippetOwned = vm.snippetOwner == $rootScope.username;
         }
     	
     	function update() {

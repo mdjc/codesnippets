@@ -1,2 +1,2 @@
-<div ng-if="!vm.isUserSnippet()" ng-include="'assets/snippets/view-snippet-readonly.html'"></div>
-<div ng-if="vm.isUserSnippet()" ng-include="'assets/snippets/snippet-form.html'"></div>
+<div ng-if="!vm.snippetOwned" ng-include="'assets/snippets/view-snippet-readonly.html'"></div>
+<div ng-if="vm.snippetOwned" ng-include="'assets/snippets/snippet-form.html'"></div>
