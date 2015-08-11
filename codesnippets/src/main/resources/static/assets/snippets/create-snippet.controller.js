@@ -12,7 +12,7 @@
 		
 		vm.mainActionLabel = "Create";
 		vm.languages = 	Languages;	
-		vm.snippet = {id: 0, title: "", code: "", language: "", description: ""};
+		vm.snippet = {id: 0, title: "", code: "", language: "", description: "", category: ""};
 		vm.submit = create;
 		
 		function create() {

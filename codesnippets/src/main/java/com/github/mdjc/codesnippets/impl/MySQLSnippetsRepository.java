@@ -39,7 +39,7 @@ public class MySQLSnippetsRepository extends JdbcDaoSupport implements SnippetsR
 				.query(
 						"SELECT * FROM snippets s "
 								+ "JOIN users u on u.user_id = s.snippet_user"
-								+ " WHERE concat(s.snippet_title, s.snippet_code) like concat('%', ?, '%') order by s.snippet_title",
+								+ " WHERE concat(s.snippet_title, s.snippet_code, s.snippet_category, s.snippet_description) like concat('%', ?, '%') order by s.snippet_title",
 						SEARCH_IT_MAPPER, query);
 	}
 }

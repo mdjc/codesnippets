@@ -24,7 +24,8 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 			rs.getString("snippet_title"),
 			rs.getString("snippet_code"),
 			rs.getString("snippet_language"),
-			rs.getString("snippet_description"));
+			rs.getString("snippet_description"),
+			rs.getString("snippet_category"));
 
 	private final User user;
 
@@ -40,13 +41,14 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 				PreparedStatement ps = con
 						.prepareStatement(
 								"INSERT INTO snippets set snippet_user = (select user_id from users where user_name = ?),"
-										+ " snippet_title = ?, snippet_code = ?, snippet_language = ?, snippet_description = ?",
+										+ " snippet_title = ?, snippet_code = ?, snippet_language = ?, snippet_description = ?, snippet_category = ?",
 								Statement.RETURN_GENERATED_KEYS);
 				ps.setString(1, user.getName());
 				ps.setString(2, snippet.getTitle());
 				ps.setString(3, snippet.getCode());
 				ps.setString(4, snippet.getLanguage());
 				ps.setString(5, snippet.getDescription());
+				ps.setString(6, snippet.getCategory());
 
 				return ps;
 			};
@@ -55,7 +57,7 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 			getJdbcTemplate().update(psc, keyHolder);
 
 			return Snippet.of(keyHolder.getKey().longValue(), snippet.getTitle(), snippet.getCode(),
-					snippet.getLanguage(), snippet.getDescription());
+					snippet.getLanguage(), snippet.getDescription(), snippet.getCategory());
 		} catch (DuplicateKeyException e) {
 			throw new DuplicateSnippetException(user, snippet);
 		}
@@ -67,10 +69,11 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 		try {
 			int affectedRows = getJdbcTemplate()
 					.update(
-							"UPDATE snippets SET snippet_title = ?, snippet_code = ?, snippet_language = ?, snippet_description = ?"
+							"UPDATE snippets SET"
+									+ " snippet_title = ?, snippet_code = ?, snippet_language = ?, snippet_description = ?, snippet_category = ?"
 									+ " WHERE snippet_user = (select user_id from users where user_name = ?) AND snippet_id = ?",
 							snippet.getTitle(), snippet.getCode(), snippet.getLanguage(), snippet.getDescription(),
-							user.getName(), snippet.getId());
+							snippet.getCategory(), user.getName(), snippet.getId());
 
 			if (affectedRows == 0) {
 				throw new NoSuchElementException(String.format("snippet: %s does not exists", snippet));

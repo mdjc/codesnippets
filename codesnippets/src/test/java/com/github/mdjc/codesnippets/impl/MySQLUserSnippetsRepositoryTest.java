@@ -29,13 +29,15 @@ public class MySQLUserSnippetsRepositoryTest extends RepositoryTest {
 	@Test
 	public void testAdd() {
 		Snippet actual = mirnaRepository.add(Snippet.of(0, "Draw Line", "public class Draw { .... }", "Java",
-				"Draw description"));
-		Snippet expected = Snippet.of(6, "Draw Line", "public class Draw { .... }", "Java", "Draw description");
+				"Draw description", "search"));
+		Snippet expected = Snippet.of(6, "Draw Line", "public class Draw { .... }", "Java", "Draw description",
+				"search");
 
 		assertEquals(expected, actual);
 		assertEquals(expected.getCode(), actual.getCode());
 		assertEquals(expected.getLanguage(), actual.getLanguage());
 		assertEquals(expected.getDescription(), actual.getDescription());
+		assertEquals(expected.getCategory(), actual.getCategory());
 	}
 
 	@Test(expected = DuplicateSnippetException.class)

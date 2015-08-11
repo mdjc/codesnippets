@@ -19,11 +19,19 @@ import com.github.mdjc.codesnippets.domain.Snippet;
 import com.github.mdjc.codesnippets.domain.SnippetSearchItem;
 import com.github.mdjc.codesnippets.domain.SnippetsRepository;
 import com.github.mdjc.codesnippets.domain.User;
+import com.github.mdjc.codesnippets.domain.UserService;
+import com.github.mdjc.codesnippets.domain.UsersRepository;
 import com.github.mdjc.codesnippets.test.common.TestUtils;
 
 public class RestAPIControllerTest extends RestControllerTest {
 	@Autowired
 	private DataSource dataSource;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private UsersRepository usersRepository;
 
 	@Autowired
 	private SnippetsRepository snippetsRepository;
@@ -102,7 +110,8 @@ public class RestAPIControllerTest extends RestControllerTest {
 
 	@Test
 	public void addSnippet() throws Exception {
-		Snippet snippet = Snippet.of(0, "my test tile", "some code goes here { .... }", "PHP", "This a sample");
+		Snippet snippet = Snippet.of(0, "my test tile", "some code goes here { .... }", "PHP", "This a sample",
+				"sample category");
 		String jsonSnippet = json(snippet);
 		long maxId = snippetSearchItems.stream().map(e -> e.getSnippet().getId()).max((x, y) -> Long.compare(x, y))
 				.get();
@@ -141,7 +150,7 @@ public class RestAPIControllerTest extends RestControllerTest {
 	@Test
 	public void updateSnippet() throws Exception {
 		Snippet snippet = Snippet.of(snippetSearchItems.get(0).getSnippet().getId(), "changed title", "changedCode",
-				"JavaScript", "Changed description");
+				"JavaScript", "Changed description", "changed category");
 		String jsonSnippet = json(snippet);
 		mockMvc.perform(put(String.format("/users/%s/snippets", snippetSearchItems.get(0).getUsername()))
 				.contentType(MediaType.APPLICATION_JSON)

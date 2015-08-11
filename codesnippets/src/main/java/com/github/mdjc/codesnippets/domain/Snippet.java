@@ -3,20 +3,22 @@ package com.github.mdjc.codesnippets.domain;
 import com.github.mdjc.commons.IllegalArguments;
 
 public class Snippet implements Comparable<Snippet> {
-	public static final Snippet NULL = new Snippet(0, "", "", "", "");
+	public static final Snippet NULL = new Snippet(0, "", "", "", "", "");
 
 	private final long id;
 	private final String title;
 	private final String code;
 	private final String language;
 	private final String description;
+	private final String category;
 
-	private Snippet(long id, String title, String code, String language, String description) {
+	private Snippet(long id, String title, String code, String language, String description, String category) {
 		this.id = id;
 		this.title = title.trim();
 		this.code = code;
 		this.language = language;
 		this.description = description;
+		this.category = category;
 	}
 
 	public long getId() {
@@ -37,6 +39,10 @@ public class Snippet implements Comparable<Snippet> {
 
 	public String getDescription() {
 		return description;
+	}
+
+	public String getCategory() {
+		return category;
 	}
 
 	@Override
@@ -69,14 +75,14 @@ public class Snippet implements Comparable<Snippet> {
 		return title;
 	}
 
-	public static Snippet of(long id, String title, String code, String language, String description) {
+	public static Snippet of(long id, String title, String code, String language, String description, String category) {
 		title = IllegalArguments.checkBlank(title);
 		code = IllegalArguments.checkBlank(code);
-		return new Snippet(id, title, code, language, description);
+		return new Snippet(id, title, code, language, description, category);
 	}
 
 	public static Snippet of(long id, String title, String code) {
-		return of(id, title, code, null, null);
+		return of(id, title, code, null, null, null);
 	}
 
 }

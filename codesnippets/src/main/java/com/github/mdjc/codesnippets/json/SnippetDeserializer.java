@@ -12,7 +12,8 @@ public class SnippetDeserializer extends SimpleDeserializer<Snippet> {
 		String code = tree.get("code").asText();
 		String language = tree.get("language").asText();
 		String description = tree.get("description").asText();
-		return Snippet.of(id, title, code, language, description);
+		String category = tree.get("category").asText();
+		return Snippet.of(id, title, code, language, description, category);
 	}
 
 }

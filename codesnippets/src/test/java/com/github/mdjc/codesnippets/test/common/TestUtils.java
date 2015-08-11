@@ -50,7 +50,7 @@ public class TestUtils {
 
 	private static String readScript() throws IOException {
 		String filePath = String.format("src%smain%sresources%s%s", File.separator, File.separator, File.separator,
-				"schema.sql");
+				"schema-h2.sql");
 		return Utils.readFile(filePath);
 	}
 }
