@@ -30,7 +30,7 @@ public class User implements Comparable<User> {
 		return password;
 	}
 
-	public UserSnippetsRepository getSnippetsRepository() {
+	public UserSnippetsRepository snippetsRepository() {
 		return snippetsRepository;
 	}
 
