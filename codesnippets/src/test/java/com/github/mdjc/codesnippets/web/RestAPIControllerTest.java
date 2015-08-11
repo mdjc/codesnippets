@@ -186,6 +186,28 @@ public class RestAPIControllerTest extends RestControllerTest {
 				.andExpect(status().isNotFound());
 	}
 
+	@Test
+	public void deleteSnippet() throws Exception {
+		Snippet snippet = snippetSearchItems.get(0).getSnippet();
+		String username = snippetSearchItems.get(0).getUsername();
+		String jsonSnippet = json(snippet);
+		mockMvc.perform(delete(String.format("/users/%s/snippets", username))
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonSnippet))
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void deleteUnexistentSnippet() throws Exception {
+		Snippet snippet = snippetSearchItems.get(0).getSnippet();
+		String username = snippetSearchItems.get(2).getUsername();
+		String jsonSnippet = json(snippet);
+		mockMvc.perform(delete(String.format("/users/%s/snippets", username))
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonSnippet))
+				.andExpect(status().isNotFound());
+	}
+
 	private void andExpectSnippet(ResultActions ra, int index, String prefix) throws Exception {
 		Snippet snippet = snippetSearchItems.get(index).getSnippet();
 		ra.andExpect(jsonPath(String.format("$[%d]%s.id", index, prefix), is((int) snippet.getId())))

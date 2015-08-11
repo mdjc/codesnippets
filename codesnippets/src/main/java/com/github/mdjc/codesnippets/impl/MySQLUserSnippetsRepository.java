@@ -99,7 +99,8 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 	public Snippet delete(Snippet snippet) {
 		int affectedRows = getJdbcTemplate()
 				.update(
-						"DELETE from snippets where snippet_id = ?", snippet.getId());
+						"DELETE from snippets where snippet_user = (select user_id from users where user_name = ?) AND snippet_id = ?",
+						user.getName(), snippet.getId());
 
 		if (affectedRows == 0) {
 			throw new NoSuchElementException(String.format("snippet: %s does not exists", snippet));
