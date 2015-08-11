@@ -64,7 +64,6 @@ public class RestAPIController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/users/{name}/snippets")
-	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Snippet> addSnippet(@PathVariable String name, @RequestBody Snippet snippet) {
 		Snippet result = usersRepository.get(name).snippetsRepository().add(snippet);
 
