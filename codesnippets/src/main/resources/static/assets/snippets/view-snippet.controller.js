@@ -14,7 +14,6 @@
     	vm.snippet = {};
     	vm.snippetOwner = "";
     	vm.languages = 	Languages;
-    	vm.language = {};
     	vm.mainActionLabel = "Update";
     	vm.submit = update;
     	vm.delt = delt;
@@ -28,14 +27,10 @@
         function viewSuccessCallback(data, status, headers, config) {
             vm.snippet = data.snippet;
             vm.snippetOwner = data.username;
-            vm.language = utils.getLanguageObj(data.snippet.language);
             vm.snippetOwned = vm.snippetOwner == $rootScope.username;
         }
     	
     	function update() {
-    		if (vm.language) {
-				vm.snippet.language = vm.language.name;
-			}
     		snippet.update($rootScope.username, vm.snippet).error(updateErrorCallback).success(updateSuccessCallback);
     	}
     	

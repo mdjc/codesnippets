@@ -16,10 +16,6 @@
 		vm.submit = create;
 		
 		function create() {
-			if (vm.language) {
-				vm.snippet.language = vm.language.name;
-			}
-			
 			snippet.nw($rootScope.username, vm.snippet).error(errorCallback).success(successCallback);
 		}
 		

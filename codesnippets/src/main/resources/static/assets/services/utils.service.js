@@ -8,9 +8,7 @@
 	function factory($timeout, $location, Languages) {
 		var service =  {
 			delayedClear: delayedClear,
-			delayedRedirect: delayedRedirect,
-			getLanguageObj: getLanguageObj
-			
+			delayedRedirect: delayedRedirect
 		};
 		
 		return service;
@@ -38,14 +36,5 @@
 		    	$location.path(path);
 		    }
 		}
-		
-		function getLanguageObj(languageName) {
-			var i;
-			for (i in Languages) {				
-				if (Languages[i].name === languageName) {
-					return Languages[i];
-				}  
-			}
-	    }
 	}
 })();
