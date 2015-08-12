@@ -4,7 +4,9 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
+import com.github.mdjc.codesnippets.domain.CategoryRepository;
 import com.github.mdjc.codesnippets.domain.Provider;
 import com.github.mdjc.codesnippets.domain.Snippet;
 import com.github.mdjc.codesnippets.domain.SnippetSearchItem;
@@ -35,6 +38,9 @@ public class RestAPIControllerTest extends RestControllerTest {
 
 	@Autowired
 	private SnippetsRepository snippetsRepository;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Autowired
 	private Provider provider;
@@ -206,6 +212,28 @@ public class RestAPIControllerTest extends RestControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonSnippet))
 				.andExpect(status().isNotFound());
+	}
+
+	@Test
+	public void allSnippetsCategories() throws Exception {
+		mockMvc.perform(get("/snippets/categories"))
+				.andExpect(status().isOk())
+				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$", hasSize(snippetsCategoriesSize())));
+	}
+
+	private int snippetsCategoriesSize() {
+		Set<String> categories = new HashSet<>();
+
+		for (SnippetSearchItem item : snippetSearchItems) {
+			if (item.getSnippet().getCategory() == null) {
+				continue;
+			}
+
+			categories.add(item.getSnippet().getCategory());
+		}
+
+		return categories.size();
 	}
 
 	private void andExpectSnippet(ResultActions ra, int index, String prefix) throws Exception {

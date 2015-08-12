@@ -12,7 +12,8 @@
 			nw: nw,
 			update: update,
 			delt: delt,
-			view: view
+			view: view,
+			allCategories:allCategories 
 		};
 		
 		return service;
@@ -49,6 +50,14 @@
 		
 		function view(id) {
 			return $http.get('/snippets/' + id);
+		}
+		
+		function allCategories(filter) {
+			return $http.get('/snippets/categories?filter=' + filter).then(thenCallBack);;
+			
+			function thenCallBack(response) {
+		    	return response.data;
+		    }
 		}
 	}
 })();

@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('codesnippetsApp', ['ngRoute', 'ngClipboard'])
+		.module('codesnippetsApp', ['ngRoute', 'ngClipboard', 'ui.bootstrap'])
 		.config(config)
 		.run(run);
 	

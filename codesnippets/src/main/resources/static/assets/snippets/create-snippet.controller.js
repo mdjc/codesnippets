@@ -12,21 +12,26 @@
 		
 		vm.mainActionLabel = "Create";
 		vm.languages = 	Languages;	
+		vm.getCategories = getCategories;
 		vm.snippet = {id: 0, title: "", code: "", language: "", description: "", category: ""};
 		vm.submit = create;
+				
+		function getCategories(filter) {
+	    	return snippet.allCategories(filter);
+	    }
 		
 		function create() {
-			snippet.nw($rootScope.username, vm.snippet).error(errorCallback).success(successCallback);
+			snippet.nw($rootScope.username, vm.snippet).error(createErrorCallback).success(createSuccessCallback);
 		}
 		
-		function errorCallback(data, status, headers, config) {
+		function createErrorCallback(data, status, headers, config) {
 	        vm.alert = new codesnippets.alerts.ErrorBuilder()
 	        	.when(422, "You already have an snippet under this title")
 	    		.build(status, "Unexpected error");
 	        utils.delayedClear(vm.alert);    	
 	     }
 
-	    function successCallback(data, status, headers, config) {
+	    function createSuccessCallback(data, status, headers, config) {
 	    	vm.alert = codesnippets.alerts.info("Your snippet has been created!")
 	    	utils.delayedRedirect('/mysnippets');
 	    }

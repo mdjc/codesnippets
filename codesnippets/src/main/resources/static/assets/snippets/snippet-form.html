@@ -19,7 +19,7 @@
 		<div class="col-xs-12 col-sm-3">
 			<fieldset class="form-group">
 				<label for="category">Category</label>
-				<input class="form-control" type="text" size="30" maxlength="30" ng-model="vm.snippet.category">
+				<input class="form-control" type="text" size="30" maxlength="30" placeholder="Place an optional category" ng-model="vm.snippet.category" typeahead="category for category in vm.getCategories($viewValue)">
 			</fieldset>
 		</div>
 		

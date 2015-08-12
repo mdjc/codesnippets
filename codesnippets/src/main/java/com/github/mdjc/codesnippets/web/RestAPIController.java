@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.github.mdjc.codesnippets.domain.CategoryRepository;
 import com.github.mdjc.codesnippets.domain.Snippet;
 import com.github.mdjc.codesnippets.domain.SnippetSearchItem;
 import com.github.mdjc.codesnippets.domain.SnippetsRepository;
@@ -33,6 +34,9 @@ public class RestAPIController {
 
 	@Autowired
 	private SnippetsRepository snippetsRepository;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@RequestMapping("/principal")
 	public Principal principal(Principal principal) {
@@ -83,5 +87,10 @@ public class RestAPIController {
 	@RequestMapping(method = RequestMethod.DELETE, value = "/users/{name}/snippets")
 	public Snippet deleteSnippet(@PathVariable String name, @RequestBody Snippet snippet) {
 		return usersRepository.get(name).snippetsRepository().delete(snippet);
+	}
+
+	@RequestMapping(value = "/snippets/categories")
+	public List<String> allSnippetsCategories(@RequestParam(defaultValue = "") String filter) {
+		return categoryRepository.all(filter);
 	}
 }

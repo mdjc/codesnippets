@@ -14,6 +14,7 @@
     	vm.snippet = {};
     	vm.snippetOwner = "";
     	vm.languages = 	Languages;
+    	vm.getCategories = getCategories;
     	vm.mainActionLabel = "Update";
     	vm.submit = update;
     	vm.delt = delt;
@@ -24,6 +25,10 @@
     		snippet.view($routeParams['id']).success(viewSuccessCallback); 
     	}    	
         
+    	function getCategories(filter) {
+	    	return snippet.allCategories(filter);
+	    }
+    	
         function viewSuccessCallback(data, status, headers, config) {
             vm.snippet = data.snippet;
             vm.snippetOwner = data.username;
