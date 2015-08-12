@@ -11,15 +11,15 @@
 		</div>
 		
 		<ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="mainMenu">
-			<li class="navbar-btn"><a href="#/allsnippets">All Snippets</a></li>
-			<li class="navbar-btn"><a href="#/signin" ng-hide="username">Sign in</a></li>
-			<li class="navbar-btn"><a href="#/signup" ng-hide="username">Sign up</a></li>
+			<li class="navbar-btn"><a href="#/allsnippets" btn-auto-collapse>All Snippets</a></li>
+			<li class="navbar-btn"><a href="#/signin" ng-hide="username" btn-auto-collapse>Sign in</a></li>
+			<li class="navbar-btn"><a href="#/signup" ng-hide="username" btn-auto-collapse>Sign up</a></li>
 			
-			<li class="navbar-btn"><a href="#/mysnippets" ng-show="username">My Snippets</a></li>
+			<li class="navbar-btn"><a href="#/mysnippets" ng-show="username" btn-auto-collapse>My Snippets</a></li>
 			<li class="navbar-btn" ng-show="username">
 				<a href="" class="text-capitalize" data-target="#" data-toggle="dropdown"><strong>{{username}}</strong> <span class="caret"></span></a>						
 				<ul class="dropdown-menu">
-					<li><a ng-click="vm.signOut()">Sign out</a></li>
+					<li><a ng-click="vm.signOut()" btn-auto-collapse>Sign out</a></li>
 				</ul>
 			</li>					
 		
