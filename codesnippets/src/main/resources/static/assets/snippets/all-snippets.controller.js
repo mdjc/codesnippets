@@ -5,9 +5,9 @@
 		.module('codesnippetsApp')
 		.controller('AllSnippetsController', Controller);
 	
-	Controller.$inject = ['$rootScope', 'snippet'];
+	Controller.$inject = ['snippet'];
 	
-	function Controller($rootScope, snippet) {
+	function Controller(snippet) {
 		var vm = this;
 		
 		vm.query = "";
