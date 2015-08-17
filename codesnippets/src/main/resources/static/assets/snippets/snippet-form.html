@@ -1,4 +1,9 @@
 <div class="container">
+	<ol class="breadcrumb">
+	  <li><a href="#/mysnippets">My Snippets</a></li>
+	  <li class="active">{{vm.snippet.title}}</li>
+	</ol>
+	
 	<div class="alert alert-{{vm.alert.type}}" role="alert" ng-if="vm.alert.message">{{vm.alert.message}}</div>
 	
 	<form ng-submit="vm.submit()">	
