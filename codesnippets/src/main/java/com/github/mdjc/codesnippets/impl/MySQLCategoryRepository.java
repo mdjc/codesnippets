@@ -18,7 +18,8 @@ public class MySQLCategoryRepository extends JdbcDaoSupport implements CategoryR
 	public List<String> all(String filter) {
 		return getJdbcTemplate()
 				.queryForList(
-						"SELECT distinct snippet_category FROM snippets where snippet_category like concat('%', ?, '%')"
+						"SELECT distinct snippet_category FROM (SELECT snippet_category from snippets UNION select category_description from snippet_categories) "
+								+ " where snippet_category like concat('%', ?, '%')"
 								+ "order by snippet_category",
 						String.class, filter);
 	}

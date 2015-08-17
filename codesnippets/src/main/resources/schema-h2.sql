@@ -15,3 +15,7 @@ CREATE TABLE snippets (
 	snippet_category VARCHAR(30),
 	UNIQUE(snippet_user, snippet_title)
 );
+
+CREATE TABLE snippet_categories (
+	category_description VARCHAR(40) NOT NULL UNIQUE
+);

@@ -3,6 +3,7 @@ package com.github.mdjc.codesnippets.impl;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -22,9 +23,11 @@ public class MySQLCategoryRepositoryTest extends RepositoryTest {
 	@Test
 	public void testFindAllCategories() {
 		List<String> expected = new ArrayList<>();
+		expected.add("default category");
 		expected.add("search");
+		Collections.sort(expected);
 
-		List<String> actual = repository.all("se");
+		List<String> actual = repository.all("e");
 
 		assertEquals(expected, actual);
 	}

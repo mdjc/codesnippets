@@ -12,3 +12,5 @@ values ((select user_id from users where user_name='mirna'), 'Heap Sort', 'publi
 
 INSERT INTO snippets (snippet_user, snippet_title, snippet_code) 
 values ((select user_id from users where user_name='mirna'), 'Quit Sort', 'public class MergeSort() {}');
+
+INSERT INTO snippet_categories (category_description) values('default category');
