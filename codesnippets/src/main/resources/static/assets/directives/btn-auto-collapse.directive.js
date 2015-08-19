@@ -11,6 +11,7 @@
 		    scope: {},
 			link: link
 		};
+		
 		return dir;
 
 		function link(scope, element, attrs) {	

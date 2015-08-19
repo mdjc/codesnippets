@@ -3,17 +3,6 @@
 	  <li><a href="#/allsnippets">All Snippets</a></li>
 	  <li class="active">{{vm.snippet.title}}</li>
 	</ol>
-	
-	<div class="col-xs-12">
-		<p>
-			<button type="button" id="btnCopySnippet" class="btn btn-default btn-md hidden-xs hidden-sm"  clip-copy="vm.snippet.code">
-				<span class="glyphicon glyphicon-copy"></span> Copy
-			</button>
-		</p>
-		<h2 class="text-capitalize">{{vm.snippet.title}} <small>by {{vm.snippetOwner}} </small></h2>		
-		<p ng-if="vm.snippet.language">Language: {{vm.snippet.language}} </p>
-		<p ng-if="vm.snippet.category">Category: {{vm.snippet.category}} </p>
-		<p ng-if="vm.snippet.description">{{vm.snippet.description}} </p>
-		<pre class="snippet-code"><code id="code">{{vm.snippet.code}}</code></pre>		
-	</div>
+		
+	<snippet-read-only-item snippet="vm.snippet" owner="vm.snippetOwner"></snippet-read-only-item>
 </div>

@@ -119,3 +119,15 @@
 	font-size: 16px;
 	font-weight: bold;
 }
+
+.category {
+	font-size: 16px;
+}
+
+.snippet-item .snippet-info {
+	font-size: 16px;
+}
+
+.snippet-item {
+	margin-bottom: 10px;
+}

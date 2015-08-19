@@ -10,6 +10,8 @@ import javax.sql.DataSource;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -28,9 +30,11 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 			rs.getString("snippet_category"));
 
 	private final User user;
+	private final NamedParameterJdbcTemplate namedParamJdbcTemplate;
 
 	public MySQLUserSnippetsRepository(DataSource dataSource, User user) {
 		setDataSource(dataSource);
+		this.namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		this.user = user;
 	}
 
@@ -86,13 +90,24 @@ public class MySQLUserSnippetsRepository extends JdbcDaoSupport implements UserS
 	}
 
 	@Override
-	public List<Snippet> find(String query) {
-		return getJdbcTemplate().query(
-				"SELECT * FROM snippets "
-						+ " JOIN users on snippet_user=user_id "
-						+ " WHERE user_name = ?"
-						+ " AND concat(snippet_title, snippet_code) like concat('%', ?, '%') order by snippet_title",
-				SNIPPET_MAPPER, user.getName(), query.trim());
+	public List<Snippet> find(String query, String category) {
+		StringBuilder sbQuery = new StringBuilder();
+		sbQuery.append("SELECT * FROM snippets s");
+		sbQuery.append(" JOIN users u on s.snippet_user=u.user_id");
+		sbQuery.append(" WHERE u.user_name = :username");
+		sbQuery.append(" AND concat(s.snippet_title, s.snippet_code, s.snippet_category, s.snippet_description) like concat('%', :query, '%')");
+
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+		paramSource.addValue("query", query);
+		paramSource.addValue("username", user.getName());
+
+		if (!category.isEmpty()) {
+			sbQuery.append("AND s.snippet_category = :category");
+			paramSource.addValue("category", category);
+		}
+
+		sbQuery.append(" ORDER BY snippet_title");
+		return namedParamJdbcTemplate.query(sbQuery.toString(), paramSource, SNIPPET_MAPPER);
 	}
 
 	@Override

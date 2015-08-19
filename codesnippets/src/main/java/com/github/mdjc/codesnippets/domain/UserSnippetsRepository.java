@@ -12,7 +12,7 @@ public interface UserSnippetsRepository {
 		}
 
 		@Override
-		public List<Snippet> find(String query) {
+		public List<Snippet> find(String query, String category) {
 			return Collections.emptyList();
 		}
 
@@ -31,7 +31,7 @@ public interface UserSnippetsRepository {
 
 	Snippet update(Snippet snippet) throws NoSuchElementException;
 
-	List<Snippet> find(String query);
+	List<Snippet> find(String query, String category);
 
 	Snippet delete(Snippet snippet);
 }

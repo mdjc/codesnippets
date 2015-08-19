@@ -17,13 +17,17 @@ import com.github.mdjc.codesnippets.domain.UserSnippetsRepository;
 
 public class MySQLUserSnippetsRepositoryTest extends RepositoryTest {
 	private static User mirnaUser;
+	private static User testUser;
 	private static UserSnippetsRepository mirnaRepository;
+	private static UserSnippetsRepository testRepository;
 
 	@BeforeClass
 	public static void init() throws Exception {
 		RepositoryTest.init();
 		mirnaUser = User.of("mirna", "mdjc@gmail.com", "mirna123", Provider.NULL);
+		testUser = User.of("testUser", "test123@gmail.com", "test123", Provider.NULL);
 		mirnaRepository = new MySQLUserSnippetsRepository(dataSource, mirnaUser);
+		testRepository = new MySQLUserSnippetsRepository(dataSource, testUser);
 	}
 
 	@Test
@@ -65,7 +69,7 @@ public class MySQLUserSnippetsRepositoryTest extends RepositoryTest {
 
 	@Test
 	public void testFindEmpty() {
-		List<Snippet> actual = mirnaRepository.find("query unexistent");
+		List<Snippet> actual = mirnaRepository.find("query unexistent", "");
 		assertTrue(actual.isEmpty());
 	}
 
@@ -75,7 +79,7 @@ public class MySQLUserSnippetsRepositoryTest extends RepositoryTest {
 		expected.add(Snippet.of(3, "Heap Sort", "public class MergeSort() {}"));
 		expected.add(Snippet.of(4, "Merge Sort", "public class MergeSort() {}"));
 		expected.add(Snippet.of(5, "Quit Sort", "public class MergeSort() {}"));
-		List<Snippet> actual = mirnaRepository.find("");
+		List<Snippet> actual = mirnaRepository.find("", "");
 		assertEquals(expected, actual);
 	}
 
@@ -83,14 +87,24 @@ public class MySQLUserSnippetsRepositoryTest extends RepositoryTest {
 	public void testFindAllByCriteria() {
 		List<Snippet> expected = new ArrayList<>();
 		expected.add(Snippet.of(4, "Heap Sort", "public class MergeSort() {}"));
-		List<Snippet> actual = mirnaRepository.find("Heap");
+		List<Snippet> actual = mirnaRepository.find("Heap", "");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testFindAllForCategory() {
+		List<Snippet> expected = new ArrayList<>();
+		expected.add(Snippet
+				.of(1, "Binary Search", "public class search() {}", "Java", "class for searching", "search"));
+		expected.add(Snippet.of(2, "Find Object", "public class search() {}", "Java", "description test", "search"));
+		List<Snippet> actual = testRepository.find("", "search");
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testFindAllEmpty() {
 		List<Snippet> expected = new ArrayList<>();
-		List<Snippet> actual = mirnaRepository.find("sorting method unexistent");
+		List<Snippet> actual = mirnaRepository.find("sorting method unexistent", "");
 		assertEquals(expected, actual);
 	}
 

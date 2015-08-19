@@ -10,6 +10,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.mdjc.codesnippets.domain.CategoryRepository;
+import com.github.mdjc.codesnippets.domain.Provider;
+import com.github.mdjc.codesnippets.domain.User;
 
 public class MySQLCategoryRepositoryTest extends RepositoryTest {
 	private static CategoryRepository repository;
@@ -28,6 +30,19 @@ public class MySQLCategoryRepositoryTest extends RepositoryTest {
 		Collections.sort(expected);
 
 		List<String> actual = repository.all("e");
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testFindAllFor() {
+		List<String> expected = new ArrayList<>();
+		expected.add("search");
+		Collections.sort(expected);
+
+		User mirnaUser = User.of("testUser", "test123@gmail.com", "test123", Provider.NULL);
+
+		List<String> actual = repository.allFor(mirnaUser);
 
 		assertEquals(expected, actual);
 	}

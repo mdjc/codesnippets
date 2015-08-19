@@ -47,12 +47,15 @@ public class RestAPIControllerTest extends RestControllerTest {
 
 	private List<SnippetSearchItem> snippetSearchItems;
 
+	private List<String> categories;
+
 	@Before
 	public void setup() throws Exception {
 		buildWebContext();
 		TestUtils.clearDataBase(dataSource);
 		TestUtils.populateDatabase(dataSource);
 		snippetSearchItems = snippetsRepository.allSnippets("");
+		categories = categoryRepository.all("");
 	}
 
 	@Test
@@ -219,21 +222,18 @@ public class RestAPIControllerTest extends RestControllerTest {
 		mockMvc.perform(get("/snippets/categories"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$", hasSize(snippetsCategoriesSize())));
+				.andExpect(jsonPath("$", hasSize(categories.size())));
 	}
 
-	private int snippetsCategoriesSize() {
-		Set<String> categories = new HashSet<>();
+	@Test
+	public void allUsesrSnippetsCategories() throws Exception {
+		String username = snippetSearchItems.get(0).getUsername();
+		int size = snippetsCategoriesSizeFor(username);
 
-		for (SnippetSearchItem item : snippetSearchItems) {
-			if (item.getSnippet().getCategory() == null) {
-				continue;
-			}
-
-			categories.add(item.getSnippet().getCategory());
-		}
-
-		return categories.size();
+		mockMvc.perform(get("/users/" + username + "/snippets/categories"))
+				.andExpect(status().isOk())
+				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$", hasSize(size)));
 	}
 
 	private void andExpectSnippet(ResultActions ra, int index, String prefix) throws Exception {
@@ -247,5 +247,19 @@ public class RestAPIControllerTest extends RestControllerTest {
 
 	private void andExpectUser(ResultActions ra, int index) throws Exception {
 		ra.andExpect(jsonPath(String.format("$[%d].username", index), is(snippetSearchItems.get(index).getUsername())));
+	}
+
+	private int snippetsCategoriesSizeFor(String username) {
+		Set<String> categories = new HashSet<>();
+
+		for (SnippetSearchItem item : snippetSearchItems) {
+			if (item.getUsername() != username || item.getSnippet().getCategory() == null) {
+				continue;
+			}
+
+			categories.add(item.getSnippet().getCategory());
+		}
+
+		return categories.size();
 	}
 }

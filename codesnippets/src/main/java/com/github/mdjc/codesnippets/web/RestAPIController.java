@@ -62,9 +62,10 @@ public class RestAPIController {
 	@RequestMapping(value = "/users/{name}/snippets")
 	public List<Snippet> allSnippets(
 			@PathVariable String name,
-			@RequestParam(defaultValue = "") String query) {
+			@RequestParam(defaultValue = "") String query,
+			@RequestParam(defaultValue = "") String category) {
 		User user = usersRepository.get(name);
-		return user.snippetsRepository().find(query);
+		return user.snippetsRepository().find(query, category);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/users/{name}/snippets")
@@ -92,5 +93,10 @@ public class RestAPIController {
 	@RequestMapping(value = "/snippets/categories")
 	public List<String> allSnippetsCategories(@RequestParam(defaultValue = "") String filter) {
 		return categoryRepository.all(filter);
+	}
+
+	@RequestMapping(value = "users/{name}/snippets/categories")
+	public List<String> allUsesrSnippetsCategories(@PathVariable String name) {
+		return categoryRepository.allFor(usersRepository.get(name));
 	}
 }

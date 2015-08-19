@@ -13,17 +13,19 @@
 			update: update,
 			delt: delt,
 			view: view,
-			allCategories:allCategories 
+			allCategories:allCategories ,
+			allUserCategories: allUserCategories
 		};
 		
 		return service;
 		
-		function all(query) {
+		function all(query) {			
 			return $http.get('/snippets?query=' + query);
 		}
 		
-		function allFor(username, query) {
-			return $http.get('/users/' + username +'/snippets?query=' + query);
+		function allFor(username, query, category) {
+			category = category || "";
+			return $http.get('/users/' + username +'/snippets?query=' + query + '&category=' + category);
 		}
 		
 		function nw(username, snippet) {
@@ -58,6 +60,10 @@
 			function thenCallBack(response) {
 		    	return response.data;
 		    }
+		}
+		
+		function allUserCategories(username) {
+			return $http.get('users/' + username + '/snippets/categories');
 		}
 	}
 })();

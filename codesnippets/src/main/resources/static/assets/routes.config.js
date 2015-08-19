@@ -17,6 +17,7 @@
 			.when('/signup', route('SignUpController','users/signup'))
 			.when('/mysnippets', route('AllSnippetsOfUserController', 'snippets/snippets-list'))
 			.when('/newsnippet', route('CreateSnippetController', 'snippets/snippet-form'))
+			.when('/mysnippets/categories', route('SnippetsByCategoryController', 'snippets/snippets-by-category'))
 			.otherwise({redirectTo: '/'});
 	}	
 		

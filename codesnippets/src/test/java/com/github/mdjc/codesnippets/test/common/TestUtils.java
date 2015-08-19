@@ -24,6 +24,7 @@ public class TestUtils {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.update("DELETE FROM snippets");
 		jdbcTemplate.update("DELETE FROM users");
+		jdbcTemplate.update("DELETE FROM snippet_categories");
 	}
 
 	public static void clearDatabase(DataSource dataSource) {

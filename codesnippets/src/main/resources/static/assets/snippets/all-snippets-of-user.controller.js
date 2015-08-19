@@ -14,6 +14,7 @@
 		vm.searchItems = [];
 		vm.query = '';
 		vm.submit = find;
+		vm.showSnippetsView = true;
 
 		activate();
  
@@ -37,6 +38,6 @@
 			}
 			
 			vm.searchItems = items;
-	    }	    
+	    }
 	}
 })();

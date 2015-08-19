@@ -3,8 +3,11 @@
 	
 	<div class="pull-right">
 		<div class="btn-group options-bar" role="group">
-			  <a href="#/newsnippet" class="btn btn-default" role="button" ng-show="username">
+			  <a href="#/newsnippet" class="btn btn-primary" role="button" ng-show="username">
 			  	<span class="glyphicon glyphicon-plus"></span> New snippet
+			  </a>
+			   <a href="#/mysnippets/categories" class="btn btn-default" role="button" ng-show="vm.showSnippetsView && vm.searchItems.length > 0">
+			  	<span class="glyphicon glyphicon-tags"></span> My Categories View
 			  </a>
 		  </div>
 	</div>
