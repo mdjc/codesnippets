@@ -1,0 +1,17 @@
+<div class="container">
+	<ol class="breadcrumb">
+	  <li><a href="#/mysnippets">My Snippets</a></li>
+	  <li class="active">Categories View</li>
+	</ol>
+	
+	<accordion close-others="true">
+	    <accordion-group ng-repeat="category in vm.categories">	    
+	    	<accordion-heading>
+            	<span class="text-capitalize" ng-click="vm.snippetsFor(category)">{{category}}</span>
+        	</accordion-heading>
+        
+	      	<snippet-read-only-item snippet="snippet" hidecategory="true" ng-repeat="snippet in vm.snippetsByCategory[category]"></snippet-read-only-item>
+	    </accordion-group>
+	</accordion>
+</div>
+	

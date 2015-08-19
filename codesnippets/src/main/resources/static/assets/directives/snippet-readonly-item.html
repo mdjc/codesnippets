@@ -1,0 +1,21 @@
+<div class="col-xs-12">
+	<div class="snippet-item">
+		<h3 class="text-capitalize">{{snippet.title}} <small ng-if="snippetOwner">by {{snippetOwner}} </small></h3>
+		<p class="snippet-info">
+			<span ng-if="snippet.description">{{snippet.description}}</span>
+			<span ng-if="snippet.description">/</span>
+			<span class="label label-primary" ng-if="snippet.language">Language: {{snippet.language}}</span>
+			<span ng-hide="hidecategory" ng-if="snippet.category">/</span>
+			<span class="label label-default" ng-hide="hidecategory" ng-if="snippet.category">Category: {{snippet.category}} </span>
+		</p>
+		<div class="panel panel-default snippet-code-panel">
+		  <div class="panel-body">
+		    <pre class="snippet-code"><code id="code">{{snippet.code}}</code></pre>
+		  	<button type="button" id="btnCopySnippet" class="btn btn-default btn-sm hidden-xs hidden-sm"  clip-copy="snippet.code">
+				<span class="glyphicon glyphicon-copy"></span> Copy
+			</button>
+			
+		  </div>
+		</div>
+	</div>
+</div>
